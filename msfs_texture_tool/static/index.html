@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MSFS Texture Tool</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <section class="toolbar">
+        <div>
+          <h1>MSFS Texture Tool</h1>
+          <p id="toolStatus">正在检查本地工具链...</p>
+        </div>
+        <button id="convertBtn" class="primary" disabled>转换</button>
+      </section>
+
+      <section class="settings" aria-label="转换设置">
+        <label>
+          <span>后端</span>
+          <select id="backend">
+            <option value="basisu">basisu 稳定模式</option>
+            <option value="sdk">SDK Exact 模式</option>
+          </select>
+        </label>
+        <label>
+          <span>质量</span>
+          <select id="quality">
+            <option value="high">High Quality</option>
+            <option value="fast">Fast</option>
+          </select>
+        </label>
+        <label>
+          <span>sRGB / Linear</span>
+          <select id="transfer">
+            <option value="auto">按后缀自动</option>
+            <option value="srgb">强制 sRGB</option>
+            <option value="linear">强制 Linear</option>
+          </select>
+        </label>
+        <label class="check">
+          <input id="mipmaps" type="checkbox" checked />
+          <span>自动生成 mipmaps</span>
+        </label>
+        <label class="check">
+          <input id="metadata" type="checkbox" checked />
+          <span>生成 .json</span>
+        </label>
+        <label class="check">
+          <input id="flagsFile" type="checkbox" checked />
+          <span>生成 .FLAGS</span>
+        </label>
+      </section>
+
+      <section id="dropzone" class="dropzone">
+        <input id="fileInput" type="file" accept=".png,image/png" multiple />
+        <div class="dropIcon">⇣</div>
+        <h2>拖拽 PNG 到这里</h2>
+        <p>自动识别 _ALBD、_COMP、_NORM、_EMIS 等后缀并套用参数。</p>
+      </section>
+
+      <section class="panel">
+        <div class="panelHead">
+          <h2>任务</h2>
+          <button id="clearBtn" class="ghost">清空</button>
+        </div>
+        <div id="fileList" class="fileList empty">还没有文件</div>
+      </section>
+
+      <section class="panel">
+        <div class="panelHead">
+          <h2>输出</h2>
+        </div>
+        <div id="resultList" class="resultList empty">转换结果会显示在这里</div>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

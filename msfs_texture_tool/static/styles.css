@@ -1,0 +1,285 @@
+:root {
+  color-scheme: light;
+  --bg: #f5f6f4;
+  --panel: #ffffff;
+  --ink: #1f2723;
+  --muted: #66716b;
+  --line: #d9ded8;
+  --accent: #0f766e;
+  --accent-dark: #115e59;
+  --warn: #a16207;
+  --bad: #b91c1c;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.app {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px;
+}
+
+.toolbar,
+.settings,
+.panel,
+.dropzone {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 18px 20px;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 22px;
+  font-weight: 720;
+}
+
+h2 {
+  font-size: 15px;
+  font-weight: 680;
+}
+
+.toolbar p,
+.dropzone p,
+.meta,
+.log {
+  color: var(--muted);
+}
+
+button,
+select {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+}
+
+button {
+  min-height: 36px;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+.primary {
+  min-width: 112px;
+  border-color: var(--accent);
+  background: var(--accent);
+  color: #fff;
+  font-weight: 680;
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--accent-dark);
+}
+
+.ghost {
+  background: transparent;
+}
+
+.settings {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+  padding: 14px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+label span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+select {
+  width: 100%;
+  height: 36px;
+  padding: 0 10px;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding-top: 20px;
+}
+
+.check input {
+  width: 16px;
+  height: 16px;
+}
+
+.check span {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.dropzone {
+  position: relative;
+  display: grid;
+  place-items: center;
+  gap: 8px;
+  min-height: 210px;
+  margin-top: 14px;
+  padding: 28px;
+  text-align: center;
+  border-style: dashed;
+}
+
+.dropzone.active {
+  border-color: var(--accent);
+  background: #eef8f5;
+}
+
+.dropzone input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.dropIcon {
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--accent);
+  font-size: 26px;
+}
+
+.panel {
+  margin-top: 14px;
+  overflow: hidden;
+}
+
+.panelHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+  padding: 0 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.fileList,
+.resultList {
+  display: grid;
+  gap: 1px;
+  background: var(--line);
+}
+
+.empty {
+  display: block;
+  padding: 18px 14px;
+  background: #fff;
+  color: var(--muted);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: minmax(220px, 1.5fr) 120px 120px 1fr;
+  gap: 12px;
+  align-items: center;
+  padding: 12px 14px;
+  background: #fff;
+}
+
+.resultRow {
+  grid-template-columns: minmax(220px, 1.2fr) 110px 1fr;
+}
+
+.name {
+  overflow-wrap: anywhere;
+  font-weight: 620;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-height: 26px;
+  padding: 0 9px;
+  border-radius: 999px;
+  background: #edf2ef;
+  color: #314039;
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.ok {
+  color: var(--accent-dark);
+}
+
+.error {
+  color: var(--bad);
+}
+
+.warn {
+  color: var(--warn);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.links a {
+  color: var(--accent-dark);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.log {
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+}
+
+@media (max-width: 920px) {
+  .settings {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .row,
+  .resultRow {
+    grid-template-columns: 1fr;
+  }
+}

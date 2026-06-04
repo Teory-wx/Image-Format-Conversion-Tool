@@ -1,0 +1,12 @@
+# Python 字节码文件
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyi
+
+# macOS 系统文件
+.DS_Store
+.AppleDouble
+.LSOverride
+.Trashes
