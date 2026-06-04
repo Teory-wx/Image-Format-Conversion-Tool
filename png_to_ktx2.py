@@ -27,7 +27,17 @@ import zlib
 from dataclasses import dataclass
 from pathlib import Path
 
-from main import KTX2_IDENTIFIER, Ktx2Error, SUPPORTED_FORMATS, decode_texture
+SCRIPT_DIR = Path(__file__).resolve().parent
+PARENT_DIR = SCRIPT_DIR.parent
+for import_dir in (SCRIPT_DIR, PARENT_DIR):
+    import_dir_text = str(import_dir)
+    if import_dir_text not in sys.path:
+        sys.path.insert(0, import_dir_text)
+
+try:
+    from ktx2_to_png import KTX2_IDENTIFIER, Ktx2Error, SUPPORTED_FORMATS, decode_texture
+except ModuleNotFoundError:
+    from main import KTX2_IDENTIFIER, Ktx2Error, SUPPORTED_FORMATS, decode_texture
 
 
 DEFAULT_FORMAT_NAME = "BC1_RGBA_UNORM_BLOCK"
@@ -853,7 +863,11 @@ def manifest_matches(
         return False
     if manifest_png.resolve() != input_path.resolve():
         return False
-    if reference_path is not None and manifest_source.resolve() != reference_path.resolve():
+    if (
+        reference_path is not None
+        and manifest_source.exists()
+        and manifest_source.resolve() != reference_path.resolve()
+    ):
         return False
 
     return hashlib.sha256(image.rgba).hexdigest() == expected_hash
@@ -1171,8 +1185,14 @@ def output_path_for(input_path: Path, output_dir: Path | None) -> Path:
 
 def reference_path_for(input_path: Path, reference: Path | None) -> Path | None:
     if reference is None:
-        candidate = input_path.parent / f"{input_path.name}.KTX2"
-        return candidate if candidate.exists() else None
+        candidates = [
+            input_path.parent / f"{input_path.name}.KTX2",
+            input_path.parent.parent / f"{input_path.name}.KTX2",
+        ]
+        for candidate in candidates:
+            if candidate.exists():
+                return candidate
+        return None
     if reference.is_dir():
         candidate = reference / f"{input_path.name}.KTX2"
         return candidate if candidate.exists() else None
